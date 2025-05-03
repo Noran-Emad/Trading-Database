@@ -1,10 +1,32 @@
-# Trading-Database
- SQL Database for a trading system.   It includes table creation, Views, initial data insertion, Procedures, Triggers and other database management queries. 
+# 📦 Trading Database
 
-## Files
+A structured SQL Server database system for managing a **trading business**.  
+This project includes schema definitions, views, triggers, and sample data to simulate real-world operations.
 
-- `Tradding1.sql` - Contains the base tables and initial schema setup.
-- `Tradding2.sql` - Contains inserts, and possibly procedures .
-- `Tradding triggers.sql` - Contains DB Triggers.
-- `Tradding views.sql` - Contains DB views.
+> ⚠️ **Note:** This project is still under development. More features and improvements are being added continuously.
 
+---
+
+## 📁 Files
+
+- `Trading_Tabbles.sql`  
+  Contains the base tables and initial schema setup.
+
+- `Trading_stored_proc.sql`  
+  Contains data insertion scripts, and stored procedures.
+
+- `Trading_Triggers.sql`  
+  Includes database triggers for enforcing business rules and data integrity.
+
+- `Trading_Views.sql`  
+  Defines SQL views for simplified data querying and reporting.
+
+---
+
+## 🧰 Technologies Used
+
+- SQL Server (T-SQL)
+- Relational Database Design
+- Triggers, Views, Stored Procedures
+
+---
