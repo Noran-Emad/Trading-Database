@@ -9,11 +9,15 @@ INSERT INTO measurement_header (um_name) VALUES ('Liter'), ('Kilogram');
 
 INSERT INTO measurement_details (unit_name, equvilant, um_id)
 VALUES 
-('ml', 1000, 5),
-('g', 1000, 10);
+('liter', 1, 5),
+('gallon', 20, 5),
+('g', 1, 10),
+('kg', 1000, 10);
+
 
 INSERT INTO items (name, barcode, category_id, brand_id, amount, purchase_price, profit_rate, warning_percentage)
 VALUES 
+('Kiwi ', '100111', 1, 1, 100, 20.00, 0.25, 10.00),
 ('Orange ', '100011', 1, 1, 100, 20.00, 0.25, 10.00),
 ('Potato ', '100012', 2, 2, 200, 10.00, 0.40, 5.00),
 ('Orange Juice', '100001', 1, 1, 100, 2.00, 0.25, 10.00),
@@ -205,3 +209,29 @@ EXEC usp_InsertSellingInvoiceWithDetails
     @sellItems;
 
 select* from warehouse_items
+
+CREATE PROCEDURE MangeBrands
+    @case NVARCHAR(1),
+    @id INT = NULL,
+    @name NVARCHAR(255) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @case = 'i'
+    BEGIN
+        INSERT INTO brands (name) VALUES (@name);
+    END
+    ELSE IF @case = 'u'
+    BEGIN
+        UPDATE brands SET name = @name WHERE id = @id;
+    END
+    ELSE IF @case = 'd'
+    BEGIN
+        DELETE FROM brands WHERE id = @id;
+    END
+    ELSE
+    BEGIN
+        RAISERROR('Invalid case value.', 16, 1);
+    END
+END;

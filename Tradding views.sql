@@ -46,3 +46,63 @@ FROM            invoice_details INNER JOIN
                          suppliers ON invoice_header.supplier_id = suppliers.id
 
 select* from v_tradding_info
+
+create view v_brand_info
+as
+SELECT 
+    b.name AS [Brand Name],
+    i.name AS [Item Name],
+    wi.amount, wi.purchase_price,
+    w.name AS [Warehouse Name]
+FROM 
+    brands b
+INNER JOIN 
+    items i ON b.id = i.brand_id
+INNER JOIN 
+    warehouse_items wi ON i.barcode = wi.item_barcode
+INNER JOIN 
+    warehousese w ON wi.ware_id = w.id
+
+alter view v_Category_info
+as
+SELECT 
+    b.name AS [Brand Name],
+    SUM(wi.amount) AS [Total Amount],
+    SUM(wi.purchase_price * wi.amount) AS [Total Purchase Value],
+    COUNT(DISTINCT i.barcode) AS [Item Count]
+FROM 
+    categories c
+INNER JOIN 
+    items i ON c.id = i.category_id
+INNER JOIN 
+    brands b ON i.brand_id = b.id
+INNER JOIN 
+    warehouse_items wi ON i.barcode = wi.item_barcode
+WHERE 
+    c.name = 'Snacks'
+GROUP BY 
+    b.name;
+
+
+CREATE VIEW v_brand_category_info
+AS
+SELECT 
+    b.name AS [Brand Name],
+    c.name AS [Category Name],
+    i.name AS [Item Name],
+    wi.amount,
+    wi.purchase_price,
+    w.name AS [Warehouse Name]
+FROM 
+    items i
+INNER JOIN 
+    brands b ON i.brand_id = b.id
+INNER JOIN 
+    categories c ON i.category_id = c.id
+INNER JOIN 
+    warehouse_items wi ON i.barcode = wi.item_barcode
+INNER JOIN 
+    warehousese w ON wi.ware_id = w.id;
+
+	SELECT * FROM v_category_info WHERE [Category Name] = 'Snacks' 
+	SELECT * FROM v_brand_info WHERE [Brand Name] = 'Brand A'
